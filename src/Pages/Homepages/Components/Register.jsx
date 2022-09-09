@@ -28,14 +28,21 @@ function Register() {
   const fnSend = async (data) => {
     
     try {
-      let registeredFlag = await API_AXIOS.get(
-        endpointList.findEmail + `?email=${data.email}`
-      );
+     
+        let call = await API_AXIOS.post(endpointList.register +`?email=${data.email}&names=${data.firstname}&lastnames=${data.lastname}&address=${data.address}&password=${data.password}` );
+        let payload=call.data;
 
-      if (registeredFlag.data == 0) {alert("no hay un email registrado");
-        await API_AXIOS.post(endpointList.register +`?email=${data.email}&names=${data.firstname}&lastnames=${data.lastname}&address=${data.address}&password=${data.password}` );} 
-        else {
-        alert("hay un email registrado");}
+        switch(payload){
+
+          case 1:alert('registrado satisfactoriamente');
+
+          case 2:alert('updateado satisfactoriamente');
+
+          case 3:alert('esperate mirey');
+
+          case 4:alert('miloco ya te registraste');
+        }
+        
 
 
     } catch (error) {
